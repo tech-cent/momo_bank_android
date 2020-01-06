@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="20dp"
+        android:gravity="start"
+        android:text="@string/sign_in_header"
+        android:textSize="29sp" />
+
+    <EditText
+        android:id="@+id/et_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/text_box_underline"
+        android:hint="@string/phone_number_hint"
+        android:inputType="phone"
+        android:paddingStart="@dimen/default_padding"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingEnd="@dimen/default_padding" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/text_box_underline"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:paddingStart="@dimen/default_padding"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingEnd="@dimen/default_padding" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/login"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:gravity="start"
+        android:text="@string/guest_register_here"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp" />
+
+</LinearLayout>
