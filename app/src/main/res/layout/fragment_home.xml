@@ -2,18 +2,92 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/default_padding"
+    android:layout_marginEnd="@dimen/default_padding"
+    android:paddingStart="@dimen/default_padding"
+    android:paddingLeft="@dimen/default_padding"
+    android:paddingEnd="@dimen/default_padding">
+
+    <LinearLayout
+        android:id="@+id/actions_view"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/default_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_deposit"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_padding"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_corner"
+            android:drawableTop="@drawable/ic_deposit"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp"
+            android:text="@string/deposit"
+            android:textColor="#000" />
+
+        <Button
+            android:id="@+id/btn_withdraw"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_padding"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_corner"
+            android:drawableTop="@drawable/ic_withdraw"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp"
+            android:text="@string/withdraw"
+            android:textColor="#000" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/text_home"
+        android:id="@+id/tv_accounts_balance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_padding"
-        android:layout_marginTop="@dimen/default_padding"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="@dimen/default_padding"
-        android:textAlignment="center"
+        android:gravity="start"
+        android:text="@string/accounts_balance"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/actions_view" />
+
+    <TextView
+        android:id="@+id/tv_accounts_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_padding"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:gravity="start"
+        android:text="@string/accounts_header"
+        app:layout_constraintTop_toBottomOf="@+id/tv_accounts_balance" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_accounts_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_padding"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:gravity="start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_accounts_header">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_accounts_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

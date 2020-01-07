@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 
 
-class PreferenceHelper(private val context: Context) {
+class PreferenceHelper(context: Context) {
     private val INTRO = "intro"
     private val NAME = "name"
+    private val ACCOUNTS = "accounts"
     private val appPrefs: SharedPreferences = context.getSharedPreferences(
         "shared",
         Context.MODE_PRIVATE
@@ -29,4 +30,13 @@ class PreferenceHelper(private val context: Context) {
 
     val name: String?
         get() = appPrefs.getString(NAME, "")
+
+    fun putAccounts(accounts: String?) {
+        val edit = appPrefs.edit()
+        edit.putString(ACCOUNTS, accounts)
+        edit.apply()
+    }
+
+    val accounts: String?
+        get() = appPrefs.getString(ACCOUNTS, "[]")
 }
