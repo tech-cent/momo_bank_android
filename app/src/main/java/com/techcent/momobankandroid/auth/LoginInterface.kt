@@ -1,9 +1,7 @@
 package com.techcent.momobankandroid.auth
 
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface LoginInterface {
@@ -13,4 +11,7 @@ interface LoginInterface {
         @Field("phone_number") phoneNumber: String?,
         @Field("password") password: String?
     ): Call<String?>?
+
+    @GET("account/")
+    fun getAccounts(@Header("Authorization") authHeader: String): Call<String?>?
 }
