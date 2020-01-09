@@ -4,11 +4,10 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.techcent.momobankandroid.R
-import com.techcent.momobankandroid.WelcomeActivity
+import com.techcent.momobankandroid.activities.WelcomeActivity
 import com.techcent.momobankandroid.constants.BASE_URL
 import com.techcent.momobankandroid.helpers.PreferenceHelper
 import kotlinx.android.synthetic.main.activity_register.*
@@ -35,14 +34,14 @@ class RegisterActivity : AppCompatActivity() {
         preferenceHelper = PreferenceHelper(this)
         // if logged in, redirect to WelcomeActivity
         if (preferenceHelper!!.isLoggedIn) {
-            val intent = Intent(this@RegisterActivity, WelcomeActivity::class.java)
+            val intent = Intent(this, WelcomeActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
         }
 
         tv_login!!.setOnClickListener {
-            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -57,13 +56,18 @@ class RegisterActivity : AppCompatActivity() {
 
         et_dob.setOnClickListener {
             DatePickerDialog(
-                this@RegisterActivity, date, calendar
+                this, date, calendar
                     .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
 
         btn_register.setOnClickListener { registerUser() }
+    }
+
+    private fun updateDateOfBirth() {
+        val simpleDateFormat = SimpleDateFormat("YYYY-MM-DD", Locale.US)
+        et_dob.setText(simpleDateFormat.format(calendar.time))
     }
 
     private fun registerUser() {
@@ -106,8 +110,11 @@ class RegisterActivity : AppCompatActivity() {
                             // compiler then executes the parseLoginData() method
                             parseSignUpData(jsonResponse)
                         } else {
-                            Toast.makeText(this@RegisterActivity, "No data returned!", Toast.LENGTH_LONG)
-                                .show()
+                            Toast.makeText(
+                                this@RegisterActivity,
+                                "No data returned!",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
                 }
@@ -115,14 +122,9 @@ class RegisterActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<String?>?, t: Throwable?) {}
             })
         } else {
-            Toast.makeText(this@RegisterActivity, "Passwords must match!", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "Passwords must match!", Toast.LENGTH_SHORT)
                 .show()
         }
-    }
-
-    private fun updateDateOfBirth() {
-        val simpleDateFormat = SimpleDateFormat("YYYY-MM-DD", Locale.US)
-        et_dob.setText(simpleDateFormat.format(calendar.time))
     }
 
     private fun parseSignUpData(response: String) {
@@ -130,7 +132,7 @@ class RegisterActivity : AppCompatActivity() {
             // save some information in shared preference using PreferenceHelper class
             saveInfo(response)
 
-            val intent = Intent(this@RegisterActivity, WelcomeActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
