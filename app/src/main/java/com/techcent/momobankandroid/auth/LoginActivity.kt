@@ -61,8 +61,7 @@ class LoginActivity : AppCompatActivity() {
                             this@LoginActivity,
                             "Verifying credentials!",
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
 
                         val jsonResponse: String = response.body().toString()
 
@@ -156,7 +155,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun saveAccountsInfo(response: String): Boolean {
         try {
-            Toast.makeText(applicationContext, "Saving Accounts", Toast.LENGTH_SHORT).show()
             preferenceHelper!!.putAccounts(response)
 
             return true

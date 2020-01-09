@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import com.techcent.momobankandroid.R
-import com.techcent.momobankandroid.auth.LoginActivity
 import com.techcent.momobankandroid.helpers.PreferenceHelper
 import kotlinx.android.synthetic.main.activity_welcome.*
 
@@ -21,12 +20,6 @@ class WelcomeActivity : AppCompatActivity() {
         skipTimer.start()
 
         tv_welcome!!.text = "Welcome ${preferenceHelper!!.name}"
-
-        btn_logout.setOnClickListener {
-            preferenceHelper!!.putIsLoggedIn(false)
-
-            goToActivity(LoginActivity::class.java)
-        }
 
         tv_skip.setOnClickListener {
             skipTimer.cancel()
