@@ -114,8 +114,7 @@ class RegisterActivity : AppCompatActivity() {
                                 this@RegisterActivity,
                                 "No data returned!",
                                 Toast.LENGTH_LONG
-                            )
-                                .show()
+                            ).show()
                         }
                     }
                 }

@@ -1,0 +1,56 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Deploy a new debug APK to #mtn_momo_bank Slack channel"
+  lane :dev do |options|
+    gradle(
+      task: "assemble",
+      build_type: "Release"
+    )
+    upload_to_slack()
+  end
+
+  desc "Upload the latest output APK to #mtn_momo_bank Slack channel"
+  private_lane :upload_to_slack do |options|
+    file_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    file_name = file_path.gsub(/\/.*\//,"")
+    slack_api_token = ENV["SLACK_API_TOKEN"]
+    channel_name = "mtn_momo_bank"
+
+    sh "echo Uploading " + file_name + " to #mtn_momo_bank"
+    sh "curl https://slack.com/api/files.upload -F token=\"" + slack_api_token + "\" -F channels=\"" + channel_name + "\" -F title=\"" + file_name + "\" -F filename=\"" + file_name + "\" -F file=@" + file_path
+  end
+
+  after_all do |lane|
+    file_name = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH].gsub(/\/.*\//,"")
+    slack(
+      message: "'MoMo Bank APK' App successfully released!",
+      payload: {
+        # Optional, lets you specify any number of your own Slack attachments.
+        "Build Date" => Time.new.to_s,
+        "APK" => file_name
+      }
+    )
+  end
+
+end
