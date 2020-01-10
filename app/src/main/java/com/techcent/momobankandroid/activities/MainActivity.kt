@@ -11,7 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.techcent.momobankandroid.R
-import com.techcent.momobankandroid.auth.LoginActivity
+import com.techcent.momobankandroid.activities.auth.LoginActivity
 import com.techcent.momobankandroid.helpers.PreferenceHelper
 
 class MainActivity : AppCompatActivity() {

@@ -29,4 +29,8 @@
     <string name="deposit">Deposit</string>
     <string name="withdraw">Withdraw</string>
     <string name="welcome_header">MoMo Bank</string>
+    <string name="transactions_header">All transactions</string>
+    <string name="transaction_type">Transaction Type</string>
+    <string name="transaction_status">Transaction Status</string>
+    <string name="transaction_date">10th-Jan-2020</string>
 </resources>

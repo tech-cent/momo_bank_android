@@ -8,6 +8,8 @@ class PreferenceHelper(context: Context) {
     private val INTRO = "intro"
     private val NAME = "name"
     private val ACCOUNTS = "accounts"
+    private val TRANSACTIONS = "transactions"
+    private val ACCESS_TOKEN = "access_token"
     private val appPrefs: SharedPreferences = context.getSharedPreferences(
         "shared",
         Context.MODE_PRIVATE
@@ -39,4 +41,22 @@ class PreferenceHelper(context: Context) {
 
     val accounts: String?
         get() = appPrefs.getString(ACCOUNTS, "[]")
+
+    fun putTransactions(transactions: String?) {
+        val edit = appPrefs.edit()
+        edit.putString(TRANSACTIONS, transactions)
+        edit.apply()
+    }
+
+    val transactions: String?
+        get() = appPrefs.getString(TRANSACTIONS, "[]")
+
+    fun putAccessToken(token: String?) {
+        val edit = appPrefs.edit()
+        edit.putString(ACCESS_TOKEN, token)
+        edit.apply()
+    }
+
+    val token: String?
+        get() = appPrefs.getString(ACCESS_TOKEN, "")
 }

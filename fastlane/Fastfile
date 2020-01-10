@@ -25,7 +25,7 @@ platform :android do
   lane :dev do |options|
     gradle(
       task: "assemble",
-      build_type: "Release"
+      build_type: "debug"
     )
     upload_to_slack()
   end

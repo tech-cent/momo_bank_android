@@ -19,7 +19,7 @@ class AccountDetailsActivity : AppCompatActivity() {
         val account = intent.getParcelableExtra<Account>("account")
 
         tv_bank_name.text = account.bank.toString()
-        tv_account_detail_balance.text = "%.2f".format(account.balance)
+        tv_account_balance.text = "%.2f".format(account.balance)
         tv_account_type.text = account.type
     }
 
