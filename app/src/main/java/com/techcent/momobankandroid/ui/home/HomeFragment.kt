@@ -31,17 +31,18 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val recyclerView = root.findViewById<View>(R.id.rv_accounts_list) as RecyclerView
-        val layoutManager = LinearLayoutManager(activity)
-        recyclerView.layoutManager = layoutManager
-
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val textView: TextView = root.findViewById(R.id.tv_accounts_balance)
         homeViewModel.text.observe(this, Observer {
             textView.text = it
         })
+
+        val recyclerView = root.findViewById<View>(R.id.rv_accounts_list) as RecyclerView
+        val layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = layoutManager
 
         preferenceHelper = PreferenceHelper(applicationContext())
         val accountsString = preferenceHelper!!.accounts

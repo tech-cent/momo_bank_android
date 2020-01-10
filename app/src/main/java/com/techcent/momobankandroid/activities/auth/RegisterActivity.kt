@@ -1,15 +1,19 @@
-package com.techcent.momobankandroid.auth
+package com.techcent.momobankandroid.activities.auth
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.techcent.momobankandroid.R
 import com.techcent.momobankandroid.activities.WelcomeActivity
+import com.techcent.momobankandroid.api.ApiInterface
 import com.techcent.momobankandroid.constants.BASE_URL
 import com.techcent.momobankandroid.helpers.PreferenceHelper
+import com.techcent.momobankandroid.helpers.setupToHideKeyboard
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -30,6 +34,9 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        val thisView: ScrollView = findViewById(R.id.signup)
+        setupToHideKeyboard(thisView, this@RegisterActivity)
 
         preferenceHelper = PreferenceHelper(this)
         // if logged in, redirect to WelcomeActivity
@@ -62,7 +69,17 @@ class RegisterActivity : AppCompatActivity() {
             ).show()
         }
 
-        btn_register.setOnClickListener { registerUser() }
+        btn_register.setOnClickListener {
+
+            val progress = ProgressDialog(this)
+            progress.setTitle("Please Wait!!!")
+            progress.setMessage("Verifying details!")
+            progress.setCancelable(true)
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            progress.show()
+
+            registerUser()
+        }
     }
 
     private fun updateDateOfBirth() {
@@ -86,7 +103,7 @@ class RegisterActivity : AppCompatActivity() {
             .build()
 
         val api =
-            retrofit.create(RegisterInterface::class.java)
+            retrofit.create(ApiInterface::class.java)
 
         if (confirmPassword == password) {
             val call: Call<String?>? = api.signUp(
