@@ -147,7 +147,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun parseSignUpData(response: String) {
         try {
             // save some information in shared preference using PreferenceHelper class
-            saveInfo(response)
+            saveSignUpInfo(response)
 
             val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -158,7 +158,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveInfo(response: String) {
+    private fun saveSignUpInfo(response: String) {
         preferenceHelper!!.putIsLoggedIn(true)
         try {
             val jsonObject = JSONObject(response)

@@ -42,7 +42,7 @@
         android:background="@drawable/rounded_corner"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
-        android:text="@string/skip_text"
+        android:text="@string/skip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
 

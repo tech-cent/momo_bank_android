@@ -46,7 +46,14 @@
         <activity
             android:name=".activities.accounts.AccountDetailsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.transactions.TransactionDetailsActivity" />
+
+        <activity
+            android:name=".activities.transactions.TransactionDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.transactions.TransactActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

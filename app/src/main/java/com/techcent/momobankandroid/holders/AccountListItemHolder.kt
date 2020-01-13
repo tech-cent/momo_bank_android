@@ -12,7 +12,7 @@ class AccountListItemHolder(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
 
     private val idTextView = itemView.findViewById<TextView>(R.id.tv_account_id)
-    private val balanceTextView = itemView.findViewById<TextView>(R.id.tv_account_balance)
+    private val balanceTextView = itemView.findViewById<TextView>(R.id.tv_balance)
 
     private var currentAccount: Account? = null
 

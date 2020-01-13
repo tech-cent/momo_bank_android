@@ -79,12 +79,6 @@ class LoginActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Verifying credentials!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
                         val jsonResponse: String = response.body().toString()
 
                         // compiler then executes the parseLoginData() method
@@ -157,7 +151,7 @@ class LoginActivity : AppCompatActivity() {
                         saveAccountsInfo(jsonResponse)
                         val proceed = fetchTransactions(accessToken, jsonResponse)
 
-                        Thread.sleep(10000)
+                        Thread.sleep(5000)
                         if (proceed) {
                             val intent = Intent(this@LoginActivity, WelcomeActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

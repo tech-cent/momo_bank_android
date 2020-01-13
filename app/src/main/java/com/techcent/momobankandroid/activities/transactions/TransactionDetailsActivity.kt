@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.techcent.momobankandroid.R
-import com.techcent.momobankandroid.helpers.formatDate
 import com.techcent.momobankandroid.models.Transaction
 import kotlinx.android.synthetic.main.activity_transaction_details.*
 
@@ -19,14 +18,17 @@ class TransactionDetailsActivity : AppCompatActivity() {
         val intent = intent
         val transaction = intent.getParcelableExtra<Transaction>("transaction")
 
-        tv_account_name.text = "Account: ${transaction.account.toString()}"
-        tv_transaction_type.text = "Type: ${transaction.type?.capitalize()}"
-        tv_transaction_status.text = "Status: ${transaction.status?.capitalize()}"
-        tv_transaction_amount.text = "Amount: %.2f".format(transaction.amount)
-        tv_previous_balance.text = "Prev. Bal. %.2f".format(transaction.prevBalance)
-        tv_new_balance.text = "Curr. Bal. %.2f".format(transaction.newBalance)
-        tv_transaction_date.text =
-            "Date: ${transaction.dateCreated?.let { formatDate(it, "DD-MM-YYYY") }}"
+        tv_account.text = "Account: ${transaction.account.toString()}"
+        tv_type.text = "Type: ${transaction.type?.capitalize()}"
+        tv_status.text = "Status: ${transaction.status?.capitalize()}"
+        tv_amount.text = "Amount: %.2f".format(transaction.amount)
+        tv_prev_balance.text = "Prev. Bal.: %.2f".format(transaction.prevBalance)
+        tv_new_balance.text = "Curr. Bal.: %.2f".format(transaction.newBalance)
+
+        val dateString = transaction.dateCreated
+        val date = dateString?.substring(0..9)
+        val time = dateString?.substring(11..18)
+        tv_date_created.text = "Date: $date $time"
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
