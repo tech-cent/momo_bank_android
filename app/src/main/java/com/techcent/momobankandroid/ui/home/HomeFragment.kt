@@ -1,9 +1,12 @@
 package com.techcent.momobankandroid.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,10 +17,10 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.techcent.momobankandroid.MoMoApplication.Companion.applicationContext
 import com.techcent.momobankandroid.R
+import com.techcent.momobankandroid.activities.transactions.TransactActivity
 import com.techcent.momobankandroid.adapters.AccountsListAdapter
 import com.techcent.momobankandroid.helpers.PreferenceHelper
 import com.techcent.momobankandroid.models.Account
-import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -57,6 +60,26 @@ class HomeFragment : Fragment() {
         textView.text = "A/C Balance: ${adapter.getTotalBalance()}"
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val actionsView = view.findViewById<LinearLayout>(R.id.actions_view)
+        val depositButton = actionsView.findViewById<Button>(R.id.btn_deposit)
+        val withdrawButton = actionsView.findViewById<Button>(R.id.btn_withdraw)
+
+        depositButton.setOnClickListener {
+            val intent = Intent(it.context, TransactActivity::class.java)
+            intent.putExtra("transaction", "deposit")
+            it.context.startActivity(intent)
+        }
+
+        withdrawButton.setOnClickListener {
+            val intent = Intent(it.context, TransactActivity::class.java)
+            intent.putExtra("transaction", "withdraw")
+            it.context.startActivity(intent)
+        }
     }
 
 }

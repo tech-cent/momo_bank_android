@@ -5,8 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 fun hideSoftKeyboard(activity: Activity) {
@@ -34,11 +32,4 @@ fun setupToHideKeyboard(view: View, activity: Activity) {
             setupToHideKeyboard(innerView, activity)
         }
     }
-}
-
-fun formatDate(dateString: String, format: String): String {
-    val simpleDateFormat = SimpleDateFormat("yyyy-MM-DD", Locale.US)
-    val simpleDateFormat2 = SimpleDateFormat(format, Locale.US)
-    val date = simpleDateFormat.parse(dateString)
-    return simpleDateFormat2.format(date)
 }
