@@ -24,9 +24,9 @@ class PreferenceHelper(context: Context) {
     val isLoggedIn: Boolean
         get() = appPrefs.getBoolean(INTRO, false)
 
-    fun putName(loggedIn: String?) {
+    fun putName(name: String?) {
         val edit = appPrefs.edit()
-        edit.putString(NAME, loggedIn)
+        edit.putString(NAME, name)
         edit.apply()
     }
 
@@ -59,4 +59,9 @@ class PreferenceHelper(context: Context) {
 
     val token: String?
         get() = appPrefs.getString(ACCESS_TOKEN, "")
+
+    fun clearPrefs() {
+        putIsLoggedIn(false)
+        putAccessToken("")
+    }
 }
