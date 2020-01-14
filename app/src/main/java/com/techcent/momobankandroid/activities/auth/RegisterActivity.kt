@@ -70,14 +70,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         btn_register.setOnClickListener {
-
-            val progress = ProgressDialog(this)
-            progress.setTitle("Please Wait!!!")
-            progress.setMessage("Verifying details!")
-            progress.setCancelable(true)
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            progress.show()
-
+            ProgressDialog.show(this, "Status", "Verifying details!", true, true)
             registerUser()
         }
     }

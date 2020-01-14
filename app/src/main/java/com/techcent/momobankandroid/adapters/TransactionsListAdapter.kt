@@ -2,8 +2,10 @@ package com.techcent.momobankandroid.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.techcent.momobankandroid.R
+import com.techcent.momobankandroid.helpers.TransactionDiffCallback
 import com.techcent.momobankandroid.holders.TransactionListItemHolder
 import com.techcent.momobankandroid.models.Transaction
 
@@ -25,5 +27,11 @@ class TransactionsListAdapter(private val transactions: ArrayList<Transaction>) 
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.transaction_list_item, parent, false)
         return TransactionListItemHolder(cardItem)
+    }
+
+    fun setData(newTransactions: ArrayList<Transaction>) {
+        val diffCallback = TransactionDiffCallback(transactions, newTransactions)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        diffResult.dispatchUpdatesTo(this)
     }
 }

@@ -1,6 +1,5 @@
 package com.techcent.momobankandroid.activities.transactions
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.techcent.momobankandroid.MoMoApplication
@@ -16,6 +16,7 @@ import com.techcent.momobankandroid.activities.MainActivity
 import com.techcent.momobankandroid.api.ApiInterface
 import com.techcent.momobankandroid.constants.BASE_URL
 import com.techcent.momobankandroid.helpers.PreferenceHelper
+import com.techcent.momobankandroid.helpers.setupToHideKeyboard
 import com.techcent.momobankandroid.models.Account
 import kotlinx.android.synthetic.main.activity_transact.*
 import retrofit2.Call
@@ -41,6 +42,9 @@ class TransactActivity : AppCompatActivity() {
         setContentView(R.layout.activity_transact)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val thisView: ConstraintLayout = findViewById(R.id.transact)
+        setupToHideKeyboard(thisView, this@TransactActivity)
 
         val intent = intent
         val transaction = intent.getStringExtra("transaction")
@@ -68,13 +72,6 @@ class TransactActivity : AppCompatActivity() {
         tv_type.text = transaction.capitalize()
 
         btn_transact.setOnClickListener {
-            val progress = ProgressDialog(this)
-            progress.setTitle("Please Wait!!!")
-            progress.setMessage("Transacting!")
-            progress.setCancelable(true)
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            progress.show()
-
             val account = accountsSpinner.selectedItem.toString().toInt()
             val amount = et_amount.text.toString().toInt()
 
