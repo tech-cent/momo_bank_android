@@ -62,6 +62,9 @@ class PreferenceHelper(context: Context) {
 
     fun clearPrefs() {
         putIsLoggedIn(false)
+        putName("")
+        putAccounts("[]")
+        putTransactions("[]")
         putAccessToken("")
     }
 }

@@ -12,7 +12,7 @@
     <string name="login">Login</string>
     <string name="nin_hint">NIN</string>
     <string name="password_hint">Password</string>
-    <string name="phone_number_hint">Phone Number</string>
+    <string name="phone_number_hint">Phone Number (256…)</string>
     <string name="register_hint">Register</string>
     <string name="sign_in_header">Sign in</string>
     <string name="sign_up_header">Register here</string>
@@ -48,8 +48,10 @@
 
     <!-- Settings -->
     <string name="title_settings">Settings</string>
+    <string name="settings_header">Name</string>
 
     <!-- Main Menu -->
     <string name="logout">Logout</string>
+    <string name="divider">Divider</string>
 
 </resources>
