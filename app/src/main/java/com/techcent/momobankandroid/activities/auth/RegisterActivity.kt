@@ -36,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         val thisView: ScrollView = findViewById(R.id.signup)
-        setupToHideKeyboard(thisView, this@RegisterActivity)
+        setupToHideKeyboard(thisView, this)
 
         preferenceHelper = PreferenceHelper(this)
         // if logged in, redirect to WelcomeActivity
@@ -99,6 +99,8 @@ class RegisterActivity : AppCompatActivity() {
             retrofit.create(ApiInterface::class.java)
 
         if (confirmPassword == password) {
+            lbl_password.error = null
+            lbl_confirm_password.error = null
             val call: Call<String?>? = api.signUp(
                 firstName, lastName, phoneNumber, password, nin, dateOfBirth
             )
@@ -108,7 +110,7 @@ class RegisterActivity : AppCompatActivity() {
                     response: Response<String?>
                 ) {
                     Toast.makeText(
-                        this@RegisterActivity,
+                        applicationContext,
                         "Registration Successful!",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -121,7 +123,7 @@ class RegisterActivity : AppCompatActivity() {
                             parseSignUpData(jsonResponse)
                         } else {
                             Toast.makeText(
-                                this@RegisterActivity,
+                                applicationContext,
                                 "No data returned!",
                                 Toast.LENGTH_LONG
                             ).show()
@@ -132,8 +134,8 @@ class RegisterActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<String?>?, t: Throwable?) {}
             })
         } else {
-            Toast.makeText(this, "Passwords must match!", Toast.LENGTH_SHORT)
-                .show()
+            lbl_password.error = "Confirm password!"
+            lbl_confirm_password.error = "Confirm password!"
         }
     }
 

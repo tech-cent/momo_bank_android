@@ -1,72 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".activities.auth.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginLeft="@dimen/default_list_margin"
+        android:layout_marginRight="@dimen/default_list_margin"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/list_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/list_margin"
-            android:gravity="start"
             android:text="@string/sign_in_header"
             android:textSize="29sp" />
 
-        <EditText
-            android:id="@+id/et_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="@dimen/list_margin"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="@dimen/list_margin"
-            android:background="@drawable/text_box_underline"
-            android:hint="@string/phone_number_hint"
-            android:inputType="phone"
-            android:paddingStart="@dimen/default_padding"
-            android:paddingLeft="@dimen/default_padding"
-            android:paddingEnd="@dimen/default_padding" />
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="@dimen/list_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/list_margin"
-            android:background="@drawable/text_box_underline"
-            android:hint="@string/password_hint"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:paddingStart="@dimen/default_padding"
-            android:paddingLeft="@dimen/default_padding"
-            android:paddingEnd="@dimen/default_padding" />
-
-        <Button
-            android:id="@+id/btn_login"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lbl_phone_number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/list_margin"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="@dimen/list_margin"
-            android:background="@color/colorPrimaryDark"
-            android:text="@string/login"
-            android:textColor="#fff" />
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:hint="@string/phone_number_hint"
+            app:boxStrokeColor="@color/colorPrimaryDark"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lbl_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+            app:boxStrokeColor="@color/colorPrimaryDark"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/login" />
 
         <TextView
             android:id="@+id/tv_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/list_margin"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/list_margin"
+            android:layout_marginBottom="@dimen/default_list_margin"
             android:gravity="start"
             android:text="@string/guest_register_here"
             android:textColor="@color/colorPrimaryDark"
