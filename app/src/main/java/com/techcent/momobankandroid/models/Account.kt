@@ -2,6 +2,7 @@ package com.techcent.momobankandroid.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
 class Account() : Parcelable {
     var id: Int? = null
@@ -9,11 +10,15 @@ class Account() : Parcelable {
     var balance: Double = 0.00
     var bank: Int = 1
 
+    @SerializedName("date_created")
+    var dateCreated: String? = null
+
     constructor(parcel: Parcel) : this() {
         id = parcel.readValue(Int::class.java.classLoader) as? Int
         type = parcel.readString()
         balance = parcel.readDouble()
         bank = parcel.readInt()
+        dateCreated = parcel.readString()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -21,6 +26,7 @@ class Account() : Parcelable {
         parcel.writeString(type)
         parcel.writeDouble(balance)
         parcel.writeInt(bank)
+        parcel.writeString(dateCreated)
     }
 
     override fun describeContents(): Int {

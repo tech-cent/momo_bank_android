@@ -17,18 +17,32 @@
             android:padding="@dimen/default_padding">
 
             <TextView
-                android:id="@+id/tv_account_id"
+                android:id="@+id/tv_type"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/account_id"
+                android:text="@string/transaction_type"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tv_balance"
+                android:id="@+id/tv_date_created"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingStart="@dimen/default_padding"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingEnd="@dimen/default_padding"
+                android:text="@string/transaction_date"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_amount"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

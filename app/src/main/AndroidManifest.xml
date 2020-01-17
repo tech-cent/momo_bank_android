@@ -26,11 +26,11 @@
         </activity>
 
         <activity
-            android:name="com.techcent.momobankandroid.auth.RegisterActivity"
+            android:name="com.techcent.momobankandroid.activities.auth.RegisterActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.techcent.momobankandroid.auth.LoginActivity"
+            android:name="com.techcent.momobankandroid.activities.auth.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,6 +45,14 @@
 
         <activity
             android:name=".activities.accounts.AccountDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.transactions.TransactionDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.transactions.TransactActivity"
             android:screenOrientation="portrait" />
 
     </application>

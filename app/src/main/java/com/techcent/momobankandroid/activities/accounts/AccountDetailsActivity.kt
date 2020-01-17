@@ -7,6 +7,7 @@ import com.techcent.momobankandroid.R
 import com.techcent.momobankandroid.models.Account
 import kotlinx.android.synthetic.main.activity_account_details.*
 
+
 class AccountDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,9 +19,14 @@ class AccountDetailsActivity : AppCompatActivity() {
         val intent = intent
         val account = intent.getParcelableExtra<Account>("account")
 
-        tv_bank_name.text = account.bank.toString()
-        tv_account_detail_balance.text = "%.2f".format(account.balance)
-        tv_account_type.text = account.type
+        tv_bank.text = "Account: ${account.bank}"
+        tv_balance.text = "Balance: %.2f".format(account.balance)
+        tv_type.text = "Type: ${account.type}"
+
+        val dateString = account.dateCreated
+        val date = dateString?.substring(0..9)
+        val time = dateString?.substring(11..18)
+        tv_date_created.text = "Date: $date $time"
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

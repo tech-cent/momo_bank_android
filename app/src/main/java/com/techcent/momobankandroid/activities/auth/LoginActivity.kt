@@ -1,13 +1,17 @@
-package com.techcent.momobankandroid.auth
+package com.techcent.momobankandroid.activities.auth
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.techcent.momobankandroid.R
 import com.techcent.momobankandroid.activities.WelcomeActivity
+import com.techcent.momobankandroid.api.ApiInterface
 import com.techcent.momobankandroid.constants.BASE_URL
 import com.techcent.momobankandroid.helpers.PreferenceHelper
+import com.techcent.momobankandroid.helpers.setupToHideKeyboard
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -26,11 +30,14 @@ class LoginActivity : AppCompatActivity() {
         .addConverterFactory(ScalarsConverterFactory.create())
         .build()
 
-    private val api = retrofit.create(LoginInterface::class.java)
+    private val api = retrofit.create(ApiInterface::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val thisView: ScrollView = findViewById(R.id.login)
+        setupToHideKeyboard(thisView, this@LoginActivity)
 
         preferenceHelper = PreferenceHelper(this)
 
@@ -40,7 +47,10 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        btn_login.setOnClickListener { loginUser() }
+        btn_login.setOnClickListener {
+            ProgressDialog.show(this@LoginActivity, "Status", "Verifying credentials!", true, true)
+            loginUser()
+        }
     }
 
     private fun loginUser() {
@@ -57,12 +67,6 @@ class LoginActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Verifying credentials!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
                         val jsonResponse: String = response.body().toString()
 
                         // compiler then executes the parseLoginData() method
@@ -103,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
 
                     preferenceHelper!!.putName(name)
 
-                    getUserAccounts(accessToken)
+                    getAccounts(accessToken)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -116,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserAccounts(accessToken: String) {
+    private fun getAccounts(accessToken: String) {
         // make the http call to the web server using retrofit
         val call: Call<String?>? = api.getAccounts(accessToken)
         call?.enqueue(object : Callback<String?> {
@@ -131,17 +135,13 @@ class LoginActivity : AppCompatActivity() {
                         val jsonResponse = response.body().toString()
 
                         // compiler then executes the saveAccountsInfo() method
-                        val proceed = saveAccountsInfo(jsonResponse)
-                        Thread.sleep(5000)
-                        if (proceed) {
-                            val intent = Intent(this@LoginActivity, WelcomeActivity::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            Toast.makeText(this@LoginActivity, "Try Again!", Toast.LENGTH_SHORT)
-                                .show()
-                        }
+                        preferenceHelper!!.putAccessToken(accessToken)
+                        saveAccountsInfo(jsonResponse)
+
+                        val intent = Intent(this@LoginActivity, WelcomeActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                        finish()
                     } else {
                         Toast.makeText(applicationContext, "No Accounts found!", Toast.LENGTH_LONG)
                             .show()

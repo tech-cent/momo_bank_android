@@ -11,7 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.techcent.momobankandroid.R
-import com.techcent.momobankandroid.auth.LoginActivity
+import com.techcent.momobankandroid.activities.auth.LoginActivity
 import com.techcent.momobankandroid.helpers.PreferenceHelper
 
 class MainActivity : AppCompatActivity() {
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logout -> {
-                preferenceHelper!!.putIsLoggedIn(false)
+                preferenceHelper!!.clearPrefs()
 
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -59,5 +59,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        preferenceHelper!!.clearPrefs()
     }
 }
