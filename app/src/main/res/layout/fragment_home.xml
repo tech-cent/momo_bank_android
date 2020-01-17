@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/default_padding"
-    android:layout_marginEnd="@dimen/default_padding"
-    android:paddingStart="@dimen/default_padding"
-    android:paddingLeft="@dimen/default_padding"
-    android:paddingEnd="@dimen/default_padding">
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginBottom="@dimen/button_height"
+    android:padding="@dimen/default_padding">
 
     <LinearLayout
         android:id="@+id/actions_view"
-        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -20,9 +19,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_deposit"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/default_padding"
@@ -34,9 +33,9 @@
             android:text="@string/deposit"
             android:textColor="#000" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_withdraw"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/default_padding"
@@ -54,9 +53,7 @@
         android:id="@+id/tv_accounts_balance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_padding"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/default_padding"
         android:gravity="start"
         android:text="@string/accounts_balance"
         android:textSize="20sp"
@@ -66,28 +63,19 @@
         android:id="@+id/tv_accounts_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_padding"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/default_padding"
         android:gravity="start"
         android:text="@string/accounts_header"
         app:layout_constraintTop_toBottomOf="@+id/tv_accounts_balance" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_accounts_list"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_accounts_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_padding"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/default_padding"
-        android:gravity="start"
-        app:layout_constraintTop_toBottomOf="@+id/tv_accounts_header">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_accounts_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        android:paddingBottom="@dimen/list_bottom_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_accounts_header"
+        app:layout_constraintVertical_bias="0.05"
+        tools:layout_editor_absoluteX="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

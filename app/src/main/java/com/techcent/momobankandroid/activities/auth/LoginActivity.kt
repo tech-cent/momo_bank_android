@@ -37,18 +37,18 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val thisView: ScrollView = findViewById(R.id.login)
-        setupToHideKeyboard(thisView, this@LoginActivity)
+        setupToHideKeyboard(thisView, this)
 
         preferenceHelper = PreferenceHelper(this)
 
         tv_register!!.setOnClickListener {
-            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
 
         btn_login.setOnClickListener {
-            ProgressDialog.show(this@LoginActivity, "Status", "Verifying credentials!", true, true)
+            ProgressDialog.show(this, "Status", "Verifying details!", true, true)
             loginUser()
         }
     }
@@ -66,17 +66,21 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<String?>
             ) {
                 if (response.isSuccessful) {
+                    lbl_phone_number.error = null
+                    lbl_password.error = null
                     if (response.body() != null) {
                         val jsonResponse: String = response.body().toString()
 
                         // compiler then executes the parseLoginData() method
                         parseLoginData(jsonResponse)
                     } else {
-                        Toast.makeText(this@LoginActivity, "No data returned!", Toast.LENGTH_LONG)
+                        Toast.makeText(applicationContext, "No data returned!", Toast.LENGTH_LONG)
                             .show()
                     }
                 } else {
-                    Toast.makeText(this@LoginActivity, "Invalid credentials!", Toast.LENGTH_SHORT)
+                    lbl_phone_number.error = "Confirm phone number!"
+                    lbl_password.error = "Confirm password!"
+                    Toast.makeText(applicationContext, "Invalid credentials!", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
@@ -107,6 +111,7 @@ class LoginActivity : AppCompatActivity() {
 
                     preferenceHelper!!.putName(name)
 
+                    getProfile(accessToken)
                     getAccounts(accessToken)
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -115,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
         } catch (e: JSONException) {
             e.printStackTrace()
 
-            Toast.makeText(this@LoginActivity, "Invalid credentials!", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "Invalid credentials!", Toast.LENGTH_SHORT)
                 .show()
         }
     }
@@ -138,7 +143,7 @@ class LoginActivity : AppCompatActivity() {
                         preferenceHelper!!.putAccessToken(accessToken)
                         saveAccountsInfo(jsonResponse)
 
-                        val intent = Intent(this@LoginActivity, WelcomeActivity::class.java)
+                        val intent = Intent(applicationContext, WelcomeActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
                         finish()
@@ -156,6 +161,42 @@ class LoginActivity : AppCompatActivity() {
     private fun saveAccountsInfo(response: String): Boolean {
         try {
             preferenceHelper!!.putAccounts(response)
+
+            return true
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        return false
+    }
+
+    private fun getProfile(accessToken: String) {
+        // make the http call to the web server using retrofit
+        val call: Call<String?>? = api.getProfile(accessToken)
+        call?.enqueue(object : Callback<String?> {
+            // if the server gives the JSON response, the compiler calls the onResponse() method
+            override fun onResponse(
+                call: Call<String?>?,
+                response: Response<String?>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        val jsonResponse = response.body().toString()
+
+                        // compiler then executes the saveAccountsInfo() method
+                        preferenceHelper!!.putAccessToken(accessToken)
+                        saveProfileInfo(jsonResponse)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<String?>?, t: Throwable?) {}
+        })
+    }
+
+    private fun saveProfileInfo(response: String): Boolean {
+        try {
+            preferenceHelper!!.putProfile(response)
 
             return true
         } catch (e: JSONException) {
