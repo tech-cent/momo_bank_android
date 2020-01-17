@@ -75,4 +75,12 @@ interface ApiInterface {
         @Field("type") type: String,
         @Field("amount") amount: Int
     ): Call<String?>?
+
+
+    /**
+     * @GET("profile/") declares an HTTP GET request to retrieve a user's profile
+     * @Header("Authorization") annotation on the header provides the `Bearer` token
+     */
+    @GET("profile/")
+    fun getProfile(@Header("Authorization") authHeader: String): Call<String?>?
 }

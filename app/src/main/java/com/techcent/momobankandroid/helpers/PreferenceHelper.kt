@@ -10,6 +10,7 @@ class PreferenceHelper(context: Context) {
     private val ACCOUNTS = "accounts"
     private val TRANSACTIONS = "transactions"
     private val ACCESS_TOKEN = "access_token"
+    private val PROFILE = "profile"
     private val appPrefs: SharedPreferences = context.getSharedPreferences(
         "shared",
         Context.MODE_PRIVATE
@@ -59,6 +60,15 @@ class PreferenceHelper(context: Context) {
 
     val token: String?
         get() = appPrefs.getString(ACCESS_TOKEN, "")
+
+    val profile: String?
+        get() = appPrefs.getString(PROFILE, "")
+
+    fun putProfile(profile: String?) {
+        val edit = appPrefs.edit()
+        edit.putString(PROFILE, profile)
+        edit.apply()
+    }
 
     fun clearPrefs() {
         putIsLoggedIn(false)

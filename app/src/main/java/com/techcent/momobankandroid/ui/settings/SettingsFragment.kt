@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.techcent.momobankandroid.MoMoApplication.Companion.applicationContext
 import com.techcent.momobankandroid.R
 import com.techcent.momobankandroid.activities.auth.LoginActivity
 import com.techcent.momobankandroid.helpers.PreferenceHelper
+import com.techcent.momobankandroid.models.User
 
 class SettingsFragment : Fragment() {
 
@@ -28,16 +30,23 @@ class SettingsFragment : Fragment() {
         settingsViewModel =
             ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
-        val textView: TextView = root.findViewById(R.id.text_settings)
-        settingsViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
 
-        val phoneNumber = root.findViewById<TextView>(R.id.text_settings)
+        val textView: TextView = root.findViewById(R.id.text_settings)
+        val phoneNumber = root.findViewById<TextView>(R.id.tv_phone_number)
         val dob = root.findViewById<TextView>(R.id.tv_dob)
         val nin = root.findViewById<TextView>(R.id.tv_nin)
 
         preferenceHelper = PreferenceHelper(applicationContext())
+        val profileString = preferenceHelper!!.profile
+
+        val gson = Gson()
+        val profileType = object : TypeToken<User>() {}.type
+        val profile: User = gson.fromJson(profileString, profileType)
+
+        textView.text = "${profile.firstName} ${profile.lastName}"
+        phoneNumber.text = profile.phoneNumber
+        dob.text = profile.dob
+        nin.text = profile.nin
 
         return root
     }

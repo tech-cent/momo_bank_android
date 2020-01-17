@@ -107,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
 
                     preferenceHelper!!.putName(name)
 
+                    getProfile(accessToken)
                     getAccounts(accessToken)
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -156,6 +157,42 @@ class LoginActivity : AppCompatActivity() {
     private fun saveAccountsInfo(response: String): Boolean {
         try {
             preferenceHelper!!.putAccounts(response)
+
+            return true
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        return false
+    }
+
+    private fun getProfile(accessToken: String) {
+        // make the http call to the web server using retrofit
+        val call: Call<String?>? = api.getProfile(accessToken)
+        call?.enqueue(object : Callback<String?> {
+            // if the server gives the JSON response, the compiler calls the onResponse() method
+            override fun onResponse(
+                call: Call<String?>?,
+                response: Response<String?>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        val jsonResponse = response.body().toString()
+
+                        // compiler then executes the saveAccountsInfo() method
+                        preferenceHelper!!.putAccessToken(accessToken)
+                        saveProfileInfo(jsonResponse)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<String?>?, t: Throwable?) {}
+        })
+    }
+
+    private fun saveProfileInfo(response: String): Boolean {
+        try {
+            preferenceHelper!!.putProfile(response)
 
             return true
         } catch (e: JSONException) {
