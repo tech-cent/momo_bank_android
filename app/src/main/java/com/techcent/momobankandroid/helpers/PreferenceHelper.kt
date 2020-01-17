@@ -72,6 +72,5 @@ class PreferenceHelper(context: Context) {
 
     fun clearPrefs() {
         putIsLoggedIn(false)
-        putAccessToken("")
     }
 }
