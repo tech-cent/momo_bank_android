@@ -43,10 +43,10 @@ class SettingsFragment : Fragment() {
         val profileType = object : TypeToken<User>() {}.type
         val profile: User = gson.fromJson(profileString, profileType)
 
-        textView.text = "${profile.firstName} ${profile.lastName}"
-        phoneNumber.text = profile.phoneNumber
-        dob.text = profile.dob
-        nin.text = profile.nin
+        textView.text = "Name: ${profile.firstName} ${profile.lastName}"
+        phoneNumber.text = "Phone: ${profile.phoneNumber}"
+        dob.text = "Born: ${profile.dob}"
+        nin.text = "NIN: ${profile.nin}"
 
         return root
     }
