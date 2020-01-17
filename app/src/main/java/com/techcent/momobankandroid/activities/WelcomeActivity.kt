@@ -29,7 +29,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun goToActivity(destination: Class<*>) {
-        val intent = Intent(this@WelcomeActivity, destination)
+        val intent = Intent(this, destination)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finish()

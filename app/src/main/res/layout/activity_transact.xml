@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/transact"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/default_list_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginRight="@dimen/default_list_margin"
+    tools:context=".activities.transactions.TransactActivity">
 
     <Spinner
         android:id="@+id/accounts_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_margin"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="@dimen/list_margin"
+        android:layout_marginLeft="@dimen/default_list_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/default_list_margin"
         android:background="@drawable/text_box_underline"
         android:gravity="start"
         android:spinnerMode="dropdown"
@@ -24,9 +29,9 @@
         android:id="@+id/tv_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_margin"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="@dimen/list_margin"
+        android:layout_marginLeft="@dimen/default_list_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/default_list_margin"
         android:background="@drawable/text_box_underline"
         android:gravity="start"
         android:textSize="29sp"
@@ -34,36 +39,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/accounts_spinner" />
 
-    <EditText
-        android:id="@+id/et_amount"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lbl_amount"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_margin"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="@dimen/list_margin"
-        android:background="@drawable/text_box_underline"
         android:gravity="start"
         android:hint="@string/amount"
         android:inputType="number"
         android:text="@string/transaction_amount"
         android:textSize="29sp"
+        app:boxStrokeColor="@color/colorPrimaryDark"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_type" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_type">
 
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_transact"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_margin"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="@dimen/list_margin"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
+        android:layout_height="@dimen/button_height"
         android:text="@string/submit"
-        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_amount" />
+        app:layout_constraintTop_toBottomOf="@+id/lbl_amount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

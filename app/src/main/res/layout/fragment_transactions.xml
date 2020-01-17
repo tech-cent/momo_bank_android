@@ -3,22 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/default_padding"
-    android:layout_marginEnd="@dimen/default_padding"
-    android:paddingStart="@dimen/default_padding"
-    android:paddingLeft="@dimen/default_padding"
-    android:paddingEnd="@dimen/default_padding">
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginBottom="@dimen/button_height"
+    android:padding="@dimen/activity_all_margin">
 
     <TextView
         android:id="@+id/tv_transactions_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_padding"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/default_padding"
-        android:gravity="start"
-        android:textSize="20sp"
         android:text="@string/transactions_header"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,17 +22,16 @@
         android:id="@+id/swipe_transactions_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_padding"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/default_padding"
-        android:gravity="start"
         app:layout_constraintTop_toBottomOf="@+id/tv_transactions_header">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_transactions_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/list_bottom_margin"
+            android:paddingBottom="@dimen/list_bottom_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_transactions_header" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

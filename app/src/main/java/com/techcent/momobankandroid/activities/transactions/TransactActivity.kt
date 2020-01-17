@@ -44,7 +44,7 @@ class TransactActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val thisView: ConstraintLayout = findViewById(R.id.transact)
-        setupToHideKeyboard(thisView, this@TransactActivity)
+        setupToHideKeyboard(thisView, this)
 
         val intent = intent
         val transaction = intent.getStringExtra("transaction")
@@ -107,16 +107,16 @@ class TransactActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     Toast.makeText(
-                        this@TransactActivity,
+                        applicationContext,
                         "Transaction Successful!",
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    val intent = Intent(this@TransactActivity, MainActivity::class.java)
+                    val intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
-                    Toast.makeText(this@TransactActivity, "Try Again!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Try Again!", Toast.LENGTH_SHORT).show()
                 }
             }
 

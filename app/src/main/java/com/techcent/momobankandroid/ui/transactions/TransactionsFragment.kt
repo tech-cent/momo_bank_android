@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +28,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.util.*
 
 class TransactionsFragment : Fragment() {
 
@@ -59,9 +57,6 @@ class TransactionsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_transactions, container, false)
 
         val textView: TextView = root.findViewById(R.id.tv_transactions_header)
-        transactionsViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
 
         preferenceHelper = PreferenceHelper(applicationContext())
 
