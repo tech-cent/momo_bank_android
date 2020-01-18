@@ -2,7 +2,6 @@
 
 [![CircleCI](https://circleci.com/gh/tech-cent/momo_bank_android.svg?style=svg)](https://circleci.com/gh/tech-cent/momo_bank_android)
 <a href="https://codeclimate.com/github/tech-cent/momo_bank_android/maintainability"><img src="https://api.codeclimate.com/v1/badges/57d8dfaf24a8ea43e32f/maintainability" /></a>
-<a href="https://codeclimate.com/github/tech-cent/momo_bank_android/test_coverage"><img src="https://api.codeclimate.com/v1/badges/57d8dfaf24a8ea43e32f/test_coverage" /></a>
 
 This Android app consumes the [MoMo Bank API](https://github.com/tech-cent/momo_bank_api)
 
