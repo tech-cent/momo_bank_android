@@ -3,6 +3,8 @@ package com.techcent.momobankandroid.activities.auth
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,8 @@ import com.techcent.momobankandroid.activities.WelcomeActivity
 import com.techcent.momobankandroid.api.ApiInterface
 import com.techcent.momobankandroid.constants.BASE_URL
 import com.techcent.momobankandroid.helpers.PreferenceHelper
+import com.techcent.momobankandroid.helpers.isValidPassword
+import com.techcent.momobankandroid.helpers.isValidPhone
 import com.techcent.momobankandroid.helpers.setupToHideKeyboard
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
@@ -47,6 +51,44 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
+        et_phone_number.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val phone = et_phone_number!!.text.toString()
+                if (phone.isEmpty()) {
+                    lbl_phone_number.error = "Phone number is empty!"
+                } else if (!isValidPhone(phone)) {
+                    lbl_phone_number.error = "Please use a valid MTN number!"
+                } else if (phone.isNotEmpty()) {
+                    lbl_phone_number.error = null
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+        })
+
+        et_password.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                lbl_password.error =
+                    if (!isValidPassword(et_password!!.text.toString())) "Passwords must have at least 8 characters" else null
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+        })
+
         btn_login.setOnClickListener {
             ProgressDialog.show(this, "Status", "Verifying details!", true, true)
             loginUser()
@@ -56,6 +98,10 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser() {
         val phoneNumber = et_phone_number!!.text.toString().trim { it <= ' ' }
         val password = et_password!!.text.toString().trim { it <= ' ' }
+
+        if (phoneNumber.startsWith("0")) {
+            phoneNumber.replaceFirst("0", "256")
+        }
 
         // make the http call to the web server using retrofit
         val call: Call<String?>? = api.login(phoneNumber, password)
@@ -78,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
                             .show()
                     }
                 } else {
-                    lbl_phone_number.error = "Confirm phone number!"
+                    lbl_phone_number.error = "Confirm MTN phone number!"
                     lbl_password.error = "Confirm password!"
                     Toast.makeText(applicationContext, "Invalid credentials!", Toast.LENGTH_SHORT)
                         .show()

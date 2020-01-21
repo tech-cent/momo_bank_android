@@ -33,3 +33,19 @@ fun setupToHideKeyboard(view: View, activity: Activity) {
         }
     }
 }
+
+fun isValidPassword(password: String): Boolean {
+//        val passwordPattern = "\"^(?=.*[A-Z])(?=.*[@_.]).*\$\""
+//        val pattern = Pattern.compile(passwordPattern)
+//        val matcher = pattern.matcher(password)
+//        return matcher.matches() && password.length >= 8
+    return password.length >= 8
+}
+
+fun isValidPhone(phoneNumber: String): Boolean {
+    return when {
+        (phoneNumber.startsWith("077") || phoneNumber.startsWith("078")) && phoneNumber.length == 10 -> true
+        (phoneNumber.startsWith("25678") || phoneNumber.startsWith("25677")) && phoneNumber.length == 12 -> true
+        else -> false
+    }
+}
